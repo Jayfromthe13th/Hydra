@@ -1,0 +1,11 @@
+C:\Users\jorda\OneDrive\Desktop\Hydra\target\release\deps\libwinapi_util-c0b0fcd8d7306757.rmeta: C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src/lib.rs C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\console.rs C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\file.rs C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\sysinfo.rs C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\win.rs
+
+C:\Users\jorda\OneDrive\Desktop\Hydra\target\release\deps\libwinapi_util-c0b0fcd8d7306757.rlib: C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src/lib.rs C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\console.rs C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\file.rs C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\sysinfo.rs C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\win.rs
+
+C:\Users\jorda\OneDrive\Desktop\Hydra\target\release\deps\winapi_util-c0b0fcd8d7306757.d: C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src/lib.rs C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\console.rs C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\file.rs C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\sysinfo.rs C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\win.rs
+
+C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src/lib.rs:
+C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\console.rs:
+C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\file.rs:
+C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\sysinfo.rs:
+C:\Users\jorda\.cargo\registry\src\index.crates.io-6f17d22bba15001f\winapi-util-0.1.9\src\win.rs:
