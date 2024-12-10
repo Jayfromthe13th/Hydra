@@ -3,7 +3,7 @@
 ![hydra logo](https://github.com/user-attachments/assets/90f1abcc-be1f-423f-b726-651ff86c99a5)
 
 
-Hydra is a sophisticated static analysis tool designed specifically for Sui Move smart contracts. It performs deep analysis of Move code to detect potential security vulnerabilities, reference safety issues, and violations of Sui-specific safety patterns.
+Hydra is a proof of concept static analysis tool designed specifically for Sui Move smart contracts. It performs deep analysis of Move code to detect potential security vulnerabilities, reference safety issues, and violations of Sui-specific safety patterns.
 
 [![Build Status](https://github.com/jayfromthe13th/hydra/workflows/CI/badge.svg)](https://github.com/jayfromthe13th/hydra/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -61,49 +61,7 @@ Hydra verifies proper object handling patterns:
 ### Capability Patterns
 Hydra ensures proper capability usage:
 
-## Configuration
 
-Create `hydra.toml` in your project root:
-
-```toml
-[hydra]
-strict = false
-ignore_tests = true
-max_module_size = 10000
-
-[checks]
-transfer_safety = true
-capability_safety = true
-shared_objects = true
-
-[output]
-format = "text"
-verbose = false
-show_fixes = true
-```
-
-## Integration
-
-### GitHub Actions
-```yaml
-name: Hydra Analysis
-on: [push, pull_request]
-
-jobs:
-  analyze:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: hydra-analyzer/action@v1
-        with:
-          paths: "sources/**/*.move"
-```
-
-### Pre-commit Hook
-```bash
-#!/bin/sh
-hydra analyze --strict $(git diff --cached --name-only | grep ".move$")
-```
 
 ## Roadmap
 
