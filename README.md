@@ -38,7 +38,6 @@ Hydra is a proof of concept static analysis tool designed specifically for Sui M
 
 
 
-## Roadmap
 
 ## Roadmap
 
