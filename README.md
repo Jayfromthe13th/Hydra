@@ -34,16 +34,7 @@ Hydra is a proof of concept static analysis tool designed specifically for Sui M
 - **Loop Analysis**: Verifies invariants and safety in loops
 - **Boundary Analysis**: Checks trust boundary crossings
 
-## Understanding Hydra's Analysis
 
-### Reference Safety
-Hydra performs sophisticated reference analysis to ensure Move's reference safety rules are maintained:
-
-### Object Safety
-Hydra verifies proper object handling patterns:
-
-### Capability Patterns
-Hydra ensures proper capability usage:
 
 
 
