@@ -1,6 +1,7 @@
 # Hydra: Static Analyzer for Sui Move
 
-![hydra logo](https://github.com/user-attachments/assets/90f1abcc-be1f-423f-b726-651ff86c99a5)
+
+![file](https://github.com/user-attachments/assets/056a14af-e121-4782-9ee7-8409d9173cfd)
 
 
 Hydra is a proof of concept static analysis tool designed specifically for Sui Move smart contracts. It performs deep analysis of Move code to detect potential security vulnerabilities, reference safety issues, and violations of Sui-specific safety patterns.
