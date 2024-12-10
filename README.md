@@ -40,38 +40,69 @@ Hydra is a proof of concept static analysis tool designed specifically for Sui M
 
 ## Roadmap
 
-### Phase 1 (Current)
-- [x] Reference Safety
-  - Reference lifetime verification
-  - Mutable reference uniqueness
-  - Reference escape analysis
-  - Cross-module reference tracking
+## Roadmap
 
-- [x] Move Type System Safety
-  - Resource type safety
-  - Ability constraints
-  - Generic type bounds
-  - Struct field access control
+### Phase 1: Reference Safety Analysis (Q1 2024)
+- [ ] **Focus:** Establish a foundation for analyzing reference safety within the Move programming model.  
+- **Key Deliverables:**  
+  - [ ] Tracks reference lifetimes and potential escapes:
+    - Monitor and validate reference usage to prevent premature deallocation or unsafe escapes.
+  - [ ] Verifies Move’s strict borrowing rules:
+    - Ensure adherence to Move's borrowing model, avoiding violations such as double mutable borrowing.
+  - [ ] Analyzes reference flows across module boundaries:
+    - Ensure safe and compliant reference interactions between modules.
+  - [ ] Move Prover integration:
+    - Simplify formal verification by generating and checking verification conditions (VCs) for reference flow.
+  - [ ] Identifies unsafe aliasing patterns:
+    - Detect potential issues like race conditions or unintended side effects caused by improper aliasing.
 
-### Phase 2 (In Progress) 
-- [ ] Global Storage Safety
-  - Resource persistence guarantees
-  - Key-value store integrity
-  - Global state invariants
-  - Cross-function state consistency
+### Phase 2: Object Safety Verification (Q2 2024)
+- [ ] **Focus:** Extend analysis capabilities to cover object safety across modules.  
+- **Key Deliverables:**  
+  - [ ] Validates object transfer patterns:
+    - Ensure safe and predictable object transfers between modules.
+  - [ ] Ensures proper shared object access:
+    - Protect shared objects from illegal mutations and maintain ownership integrity.
+  - [ ] Verifies ownership model compliance:
+    - Confirm adherence to Move's ownership rules to prevent conflicts.
+  - [ ] Detects "hot potato" anti-patterns:
+    - Identify inefficient or risky object passing patterns.
+  - [ ] **Beta Release:** Closed beta rollout with early adopters testing these features.
 
-- [ ] Module Publishing Safety
-  - Module isolation
-  - Friend visibility
-  - Capability delegation
-  - Module upgrade safety
+### Phase 3: Capability Analysis (Q3 2024)
+- [ ] **Focus:** Strengthen capability safety to ensure secure permission and delegation models.  
+- **Key Deliverables:**  
+  - [ ] Tracks capability flow and delegation:
+    - Monitor and validate safe delegation of capabilities across modules.
+  - [ ] Identifies privilege escalation risks:
+    - Detect scenarios of improper privilege escalation.
+  - [ ] Verifies permission models:
+    - Ensure correct implementation of permission models to prevent unauthorized access.
+  - [ ] Analyzes cross-module capability usage:
+    - Verify safe and compliant usage of capabilities across module boundaries.
+  - [ ] Move Prover integration:
+    - Enable easier formal verification of capability flow and delegation models.
+  - [ ] **Version 1 Release:** Full public release incorporating object and capability safety features.
 
-### Phase 3 (Planned)
-- [ ] Advanced Safety Features
-  - Consensus safety patterns
-  - Economic safety analysis
-  - Cross-chain interaction safety
-  - Formal correctness proofs
+### Phase 4: Global Storage Safety (Q4 2024)
+- [ ] **Focus:** Ensure comprehensive global safety, integrating advanced formal verification tools.  
+- **Key Deliverables:**  
+  - [ ] Resource persistence guarantees:
+    - Validate consistent resource lifetimes within the global state.
+  - [ ] Key-value store integrity:
+    - Ensure integrity and safety of state storage systems.
+  - [ ] Global state invariants:
+    - Enforce state consistency checks across modules.
+  - [ ] Cross-function state consistency:
+    - Verify that state changes across functions are valid and predictable.
+  - [ ] Formal verification for economic and consensus safety:
+    - Introduce methods to validate cross-chain interactions and economic models.
+  - [ ] **Version 2 Release:** Advanced safety features with fully integrated global storage analysis.
+
+### Move Prover Integration for Formal Verification
+At each phase, Hydra integrates with **Move Prover** to provide:  
+- [ ] **Simplified formal verification:** Automatically generate verification conditions (VCs) to validate safety properties.  
+- [ ] **Developer-friendly workflows:** Offer a unified tool for developers and security researchers to compile, verify, and validate safety across contracts, making formal verification accessible and efficient.  
 
 ## Technical Details
 
