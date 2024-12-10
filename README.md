@@ -85,26 +85,6 @@ Hydra is a proof of concept static analysis tool designed specifically for Sui M
 6. **Pattern Matching**: Detect unsafe patterns
 7. **Report Generation**: Generate detailed findings
 
-### Analysis Types
-
-#### 1. Static Analysis
-- Control flow analysis
-- Data flow analysis
-- Reference tracking
-- State transition analysis
-- Pattern matching
-
-#### 2. Semantic Analysis
-- Type checking
-- Ownership verification
-- Capability tracking
-- Invariant verification
-
-#### 3. Safety Verification
-- Reference safety
-- Object safety
-- Capability safety
-- Consensus safety
 
 
 
