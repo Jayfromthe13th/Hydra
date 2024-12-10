@@ -34,22 +34,6 @@ Hydra is a proof of concept static analysis tool designed specifically for Sui M
 - **Loop Analysis**: Verifies invariants and safety in loops
 - **Boundary Analysis**: Checks trust boundary crossings
 
-## Quick Start
-
-```bash
-# Install Hydra
-cargo install hydra-analyzer
-
-# Analyze a single file
-hydra analyze path/to/module.move
-
-# Analyze with detailed output
-hydra analyze --verbose path/to/module.move
-
-# Generate SARIF report
-hydra analyze --format sarif path/to/module.move
-```
-
 ## Understanding Hydra's Analysis
 
 ### Reference Safety
@@ -132,21 +116,7 @@ Hydra ensures proper capability usage:
 - Consensus safety
 
 
-### Development Setup
-```bash
-# Clone repository
-git clone https://github.com/jayfromthe13th/hydra
-cd hydra
 
-# Build
-cargo build
-
-# Run tests
-cargo test
-
-# Run benchmarks
-cargo bench
-```
 
 ## License
 
