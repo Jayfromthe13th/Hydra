@@ -1,10 +1,10 @@
 # Hydra: Static Analyzer for Sui Move
 
-<p align="center">
-  <img src="hydra-dragon.png" width="200" alt="Hydra Logo">
-</p>
 
-Hydra is a sophisticated static analysis tool designed specifically for Sui Move smart contracts. It performs deep analysis of Move code to detect potential security vulnerabilities, reference safety issues, and violations of Sui-specific safety patterns.
+![file](https://github.com/user-attachments/assets/056a14af-e121-4782-9ee7-8409d9173cfd)
+
+
+Hydra is a proof of concept static analysis tool designed specifically for Sui Move smart contracts. It performs deep analysis of Move code to detect potential security vulnerabilities, reference safety issues, and violations of Sui-specific safety patterns.
 
 [![Build Status](https://github.com/jayfromthe13th/hydra/workflows/CI/badge.svg)](https://github.com/jayfromthe13th/hydra/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -35,111 +35,74 @@ Hydra is a sophisticated static analysis tool designed specifically for Sui Move
 - **Loop Analysis**: Verifies invariants and safety in loops
 - **Boundary Analysis**: Checks trust boundary crossings
 
-## Quick Start
 
-```bash
-# Install Hydra
-cargo install hydra-analyzer
 
-# Analyze a single file
-hydra analyze path/to/module.move
 
-# Analyze with detailed output
-hydra analyze --verbose path/to/module.move
 
-# Generate SARIF report
-hydra analyze --format sarif path/to/module.move
-```
-
-## Understanding Hydra's Analysis
-
-### Reference Safety
-Hydra performs sophisticated reference analysis to ensure Move's reference safety rules are maintained:
-
-### Object Safety
-Hydra verifies proper object handling patterns:
-
-### Capability Patterns
-Hydra ensures proper capability usage:
-
-## Configuration
-
-Create `hydra.toml` in your project root:
-
-```toml
-[hydra]
-strict = false
-ignore_tests = true
-max_module_size = 10000
-
-[checks]
-transfer_safety = true
-capability_safety = true
-shared_objects = true
-
-[output]
-format = "text"
-verbose = false
-show_fixes = true
-```
-
-## Integration
-
-### GitHub Actions
-```yaml
-name: Hydra Analysis
-on: [push, pull_request]
-
-jobs:
-  analyze:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: hydra-analyzer/action@v1
-        with:
-          paths: "sources/**/*.move"
-```
-
-### Pre-commit Hook
-```bash
-#!/bin/sh
-hydra analyze --strict $(git diff --cached --name-only | grep ".move$")
-```
 
 ## Roadmap
 
-### Phase 1 (Current)
-- [x] Reference Safety
-  - Reference lifetime verification
-  - Mutable reference uniqueness
-  - Reference escape analysis
-  - Cross-module reference tracking
+### Phase 1: Reference Safety Analysis (Q1 2024)
+- [ ] **Focus:** Establish a foundation for analyzing reference safety within the Move programming model.  
+- **Key Deliverables:**  
+  - [ ] Tracks reference lifetimes and potential escapes:
+    - Monitor and validate reference usage to prevent premature deallocation or unsafe escapes.
+  - [ ] Verifies Move’s strict borrowing rules:
+    - Ensure adherence to Move's borrowing model, avoiding violations such as double mutable borrowing.
+  - [ ] Analyzes reference flows across module boundaries:
+    - Ensure safe and compliant reference interactions between modules.
+  - [ ] Move Prover integration:
+    - Simplify formal verification by generating and checking verification conditions (VCs) for reference flow.
+  - [ ] Identifies unsafe aliasing patterns:
+    - Detect potential issues like race conditions or unintended side effects caused by improper aliasing.
 
-- [x] Move Type System Safety
-  - Resource type safety
-  - Ability constraints
-  - Generic type bounds
-  - Struct field access control
+### Phase 2: Object Safety Verification (Q2 2024)
+- [ ] **Focus:** Extend analysis capabilities to cover object safety across modules.  
+- **Key Deliverables:**  
+  - [ ] Validates object transfer patterns:
+    - Ensure safe and predictable object transfers between modules.
+  - [ ] Ensures proper shared object access:
+    - Protect shared objects from illegal mutations and maintain ownership integrity.
+  - [ ] Verifies ownership model compliance:
+    - Confirm adherence to Move's ownership rules to prevent conflicts.
+  - [ ] Detects "hot potato" anti-patterns:
+    - Identify inefficient or risky object passing patterns.
+  - [ ] **Beta Release:** Closed beta rollout with early adopters testing these features.
 
-### Phase 2 (In Progress) 
-- [ ] Global Storage Safety
-  - Resource persistence guarantees
-  - Key-value store integrity
-  - Global state invariants
-  - Cross-function state consistency
+### Phase 3: Capability Analysis (Q3 2024)
+- [ ] **Focus:** Strengthen capability safety to ensure secure permission and delegation models.  
+- **Key Deliverables:**  
+  - [ ] Tracks capability flow and delegation:
+    - Monitor and validate safe delegation of capabilities across modules.
+  - [ ] Identifies privilege escalation risks:
+    - Detect scenarios of improper privilege escalation.
+  - [ ] Verifies permission models:
+    - Ensure correct implementation of permission models to prevent unauthorized access.
+  - [ ] Analyzes cross-module capability usage:
+    - Verify safe and compliant usage of capabilities across module boundaries.
+  - [ ] Move Prover integration:
+    - Enable easier formal verification of capability flow and delegation models.
+  - [ ] **Version 1 Release:** Full public release incorporating object and capability safety features.
 
-- [ ] Module Publishing Safety
-  - Module isolation
-  - Friend visibility
-  - Capability delegation
-  - Module upgrade safety
+### Phase 4: Global Storage Safety (Q4 2024)
+- [ ] **Focus:** Ensure comprehensive global safety, integrating advanced formal verification tools.  
+- **Key Deliverables:**  
+  - [ ] Resource persistence guarantees:
+    - Validate consistent resource lifetimes within the global state.
+  - [ ] Key-value store integrity:
+    - Ensure integrity and safety of state storage systems.
+  - [ ] Global state invariants:
+    - Enforce state consistency checks across modules.
+  - [ ] Cross-function state consistency:
+    - Verify that state changes across functions are valid and predictable.
+  - [ ] Formal verification for economic and consensus safety:
+    - Introduce methods to validate cross-chain interactions and economic models.
+  - [ ] **Version 2 Release:** Advanced safety features with fully integrated global storage analysis.
 
-### Phase 3 (Planned)
-- [ ] Advanced Safety Features
-  - Consensus safety patterns
-  - Economic safety analysis
-  - Cross-chain interaction safety
-  - Formal correctness proofs
+### Move Prover Integration for Formal Verification
+At each phase, Hydra integrates with **Move Prover** to provide:  
+- [ ] **Simplified formal verification:** Automatically generate verification conditions (VCs) to validate safety properties.  
+- [ ] **Developer-friendly workflows:** Offer a unified tool for developers and security researchers to compile, verify, and validate safety across contracts, making formal verification accessible and efficient.  
 
 ## Technical Details
 
@@ -153,43 +116,9 @@ hydra analyze --strict $(git diff --cached --name-only | grep ".move$")
 6. **Pattern Matching**: Detect unsafe patterns
 7. **Report Generation**: Generate detailed findings
 
-### Analysis Types
-
-#### 1. Static Analysis
-- Control flow analysis
-- Data flow analysis
-- Reference tracking
-- State transition analysis
-- Pattern matching
-
-#### 2. Semantic Analysis
-- Type checking
-- Ownership verification
-- Capability tracking
-- Invariant verification
-
-#### 3. Safety Verification
-- Reference safety
-- Object safety
-- Capability safety
-- Consensus safety
 
 
-### Development Setup
-```bash
-# Clone repository
-git clone https://github.com/jayfromthe13th/hydra
-cd hydra
 
-# Build
-cargo build
-
-# Run tests
-cargo test
-
-# Run benchmarks
-cargo bench
-```
 
 ## License
 
