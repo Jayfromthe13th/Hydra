@@ -63,6 +63,17 @@ pub enum Severity {
     Low,
 }
 
+impl fmt::Display for Severity {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Severity::Critical => write!(f, "CRITICAL"),
+            Severity::High => write!(f, "HIGH"),
+            Severity::Medium => write!(f, "MEDIUM"),
+            Severity::Low => write!(f, "LOW"),
+        }
+    }
+}
+
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct Location {
     pub file: String,

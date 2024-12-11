@@ -22,3 +22,6 @@ pub use analyzer::types::{
 };
 
 pub use crate::analyzer::object_state::ObjectIssueType;
+
+// Re-export HydraAnalyzer for convenience
+pub use crate::analyzer::HydraAnalyzer;
