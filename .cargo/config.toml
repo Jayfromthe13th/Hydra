@@ -1,0 +1,8 @@
+[build]
+rustflags = ["-C", "target-cpu=native"]
+
+[target.'cfg(debug_assertions)']
+rustflags = ["-C", "debuginfo=2"]
+
+[target.'cfg(not(debug_assertions))']
+rustflags = ["-C", "debuginfo=0"] 

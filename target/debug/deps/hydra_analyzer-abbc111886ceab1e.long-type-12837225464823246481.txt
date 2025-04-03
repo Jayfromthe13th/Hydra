@@ -1,0 +1,1 @@
+MapWith<rayon::vec::IntoIter<Module>, (&mut HydraAnalyzer, &mut AnalysisCache), {closure@src\perf\mod.rs:122:42: 122:69}>
