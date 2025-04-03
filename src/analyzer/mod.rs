@@ -176,30 +176,57 @@ impl HydraAnalyzer {
             }
 
             // Check for unauthorized direct transfer with correct line number
-            if source.contains("transfer::public_transfer") && source.contains("leaderboard.creator") {
+            if source.contains("transfer::public_transfer") {
                 let transfer_line = source.lines()
                     .position(|l| l.contains("transfer::public_transfer"))
                     .unwrap_or(0) + 1;
 
-                violations.push(SafetyViolation {
-                    location: Location {
-                        file: file_path.to_string(),
-                        line: transfer_line,
-                        column: drain_fn.location.column,
-                        context: "check_out_project function".to_string(),
-                    },
-                    violation_type: ViolationType::UnauthorizedAccess,
-                    message: "Unauthorized direct fund transfer to creator".to_string(),
-                    severity: Severity::High,
-                    context: Some(ViolationContext {
-                        affected_functions: vec!["check_out_project".to_string()],
-                        related_types: vec!["Project".to_string()],
-                        suggested_fixes: vec![
-                            "Remove direct creator transfer, implement proper withdrawal mechanism".to_string()
-                        ],
-                        whitepaper_reference: Some("Section 4.5: Fund Safety".to_string()),
-                    }),
-                });
+                // Check if transfer is to creator without proper authorization
+                if source.contains("leaderboard.creator") && !source.contains("assert") {
+                    violations.push(SafetyViolation {
+                        location: Location {
+                            file: file_path.to_string(),
+                            line: transfer_line,
+                            column: drain_fn.location.column,
+                            context: "check_out_project function".to_string(),
+                        },
+                        violation_type: ViolationType::UnauthorizedAccess,
+                        message: "Unauthorized direct fund transfer to creator without verification".to_string(),
+                        severity: Severity::High,
+                        context: Some(ViolationContext {
+                            affected_functions: vec!["check_out_project".to_string()],
+                            related_types: vec!["Project".to_string()],
+                            suggested_fixes: vec![
+                                "Add ownership verification before transfer".to_string(),
+                                "Use proper withdrawal mechanism instead of direct transfer".to_string()
+                            ],
+                            whitepaper_reference: Some("Section 4.5: Fund Safety".to_string()),
+                        }),
+                    });
+                }
+
+                // Check for missing balance validation
+                if !source.contains("balance::value") && !source.contains("balance::split") {
+                    violations.push(SafetyViolation {
+                        location: Location {
+                            file: file_path.to_string(),
+                            line: transfer_line,
+                            column: drain_fn.location.column,
+                            context: "check_out_project function".to_string(),
+                        },
+                        violation_type: ViolationType::UnauthorizedAccess,
+                        message: "Transfer without balance validation".to_string(),
+                        severity: Severity::High,
+                        context: Some(ViolationContext {
+                            affected_functions: vec!["check_out_project".to_string()],
+                            related_types: vec!["Project".to_string()],
+                            suggested_fixes: vec![
+                                "Add balance validation before transfer".to_string()
+                            ],
+                            whitepaper_reference: Some("Section 4.5: Fund Safety".to_string()),
+                        }),
+                    });
+                }
             }
         }
 

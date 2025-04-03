@@ -383,8 +383,8 @@ mod tests {
             }
         );
 
-        let mut module = Module::new("test");
-        let mut function = Function::new("test");
+        let mut module = Module::new("test".to_string());
+        let mut function = Function::new("test".to_string());
         function.add_statement(Statement::Call("test".to_string(), vec![]));
         module.add_function(function);
 
@@ -404,8 +404,8 @@ mod tests {
             }
         );
 
-        let mut module = Module::new("test");
-        let mut function = Function::new("test");
+        let mut module = Module::new("test".to_string());
+        let mut function = Function::new("test".to_string());
         function.add_statement(Statement::Call("public::secret".to_string(), vec![]));
         module.add_function(function);
 

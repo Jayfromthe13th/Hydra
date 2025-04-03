@@ -200,8 +200,8 @@ mod tests {
         let mut analyzer = TraceAnalyzer::new();
         analyzer.mark_trusted_module("trusted".to_string());
         
-        let mut module = Module::new("untrusted");
-        let mut function = Function::new("test");
+        let mut module = Module::new("untrusted".to_string());
+        let mut function = Function::new("test".to_string());
         function.add_statement(Statement::Call("trusted::func".to_string(), vec![]));
         module.add_function(function);
 
@@ -218,8 +218,8 @@ mod tests {
     fn test_call_chain_tracking() {
         let mut analyzer = TraceAnalyzer::new();
         
-        let mut module = Module::new("test");
-        let mut function = Function::new("func");
+        let mut module = Module::new("test".to_string());
+        let mut function = Function::new("func".to_string());
         function.add_statement(Statement::Call("mod1::func".to_string(), vec![]));
         function.add_statement(Statement::Call("mod2::func".to_string(), vec![]));
         module.add_function(function);

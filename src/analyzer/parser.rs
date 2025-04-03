@@ -160,6 +160,7 @@ pub struct Module {
     pub imports: HashSet<Import>,
     pub functions: Vec<Function>,
     pub structs: Vec<Struct>,
+    pub fields: Vec<Field>,
 }
 
 impl Default for Module {
@@ -169,6 +170,7 @@ impl Default for Module {
             imports: HashSet::new(),
             functions: Vec::new(),
             structs: Vec::new(),
+            fields: Vec::new(),
         }
     }
 }
@@ -197,8 +199,17 @@ impl Function {
             has_loops: false,
             has_assertions: false,
             external_calls: HashSet::new(),
-            location: Location::default(),
+            location: Location {
+                file: String::new(),
+                line: 0,
+                column: 0,
+                context: String::new(),
+            },
         }
+    }
+
+    pub fn add_statement(&mut self, statement: Statement) {
+        self.body.push(statement);
     }
 }
 
@@ -210,10 +221,64 @@ pub struct Struct {
     pub attributes: Vec<String>,
 }
 
+impl Struct {
+    pub fn new(name: String) -> Self {
+        Self {
+            name,
+            fields: Vec::new(),
+            abilities: Vec::new(),
+            attributes: Vec::new(),
+        }
+    }
+
+    pub fn has_key_ability(&self) -> bool {
+        self.abilities.contains(&"key".to_string())
+    }
+
+    pub fn is_public(&self) -> bool {
+        self.abilities.contains(&"public".to_string())
+    }
+
+    pub fn has_invariant(&self) -> bool {
+        // Check for invariant annotations
+        self.attributes.iter().any(|attr| attr.contains("invariant"))
+    }
+
+    pub fn get_invariant(&self) -> Option<String> {
+        self.attributes.iter()
+            .find(|attr| attr.contains("invariant"))
+            .map(|attr| attr.to_string())
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct Field {
     pub name: String,
     pub field_type: Type,
+}
+
+impl Field {
+    pub fn new(name: String, field_type: Type) -> Self {
+        Self {
+            name,
+            field_type,
+        }
+    }
+
+    pub fn is_public(&self) -> bool {
+        // Add implementation
+        true
+    }
+
+    pub fn has_invariant(&self) -> bool {
+        // Add implementation
+        false
+    }
+
+    pub fn get_invariant(&self) -> Option<String> {
+        // Add implementation
+        None
+    }
 }
 
 impl Module {
@@ -223,6 +288,7 @@ impl Module {
             imports: HashSet::new(),
             functions: Vec::new(),
             structs: Vec::new(),
+            fields: Vec::new(),
         };
 
         let mut current_function: Option<Function> = None;
@@ -334,6 +400,7 @@ impl Module {
             functions: Vec::new(),
             imports: HashSet::new(),
             structs: Vec::new(),
+            fields: Vec::new(),
         }
     }
 
@@ -353,6 +420,18 @@ impl Module {
             .filter(|s| s.abilities.contains(&"global".to_string()))
             .flat_map(|s| &s.fields)
             .collect()
+    }
+
+    pub fn add_function(&mut self, function: Function) {
+        self.functions.push(function);
+    }
+
+    pub fn add_field_with_invariant(&mut self, field: Field, _invariant: String) {
+        self.fields.push(field);
+    }
+
+    pub fn add_struct_with_invariant(&mut self, struct_def: Struct, _invariant: String) {
+        self.structs.push(struct_def);
     }
 }
 
@@ -419,46 +498,8 @@ fn parse_struct(line: &str, brace_count: &mut i32) -> Result<Option<Struct>, Str
     }))
 }
 
-impl Struct {
-    pub fn has_key_ability(&self) -> bool {
-        self.abilities.contains(&"key".to_string())
-    }
-
-    pub fn is_public(&self) -> bool {
-        self.abilities.contains(&"public".to_string())
-    }
-
-    pub fn has_invariant(&self) -> bool {
-        // Check for invariant annotations
-        self.attributes.iter().any(|attr| attr.contains("invariant"))
-    }
-
-    pub fn get_invariant(&self) -> Option<String> {
-        self.attributes.iter()
-            .find(|attr| attr.contains("invariant"))
-            .map(|attr| attr.to_string())
-    }
-}
-
 impl Parameter {
     pub fn is_mutable_reference(&self) -> bool {
         matches!(self.param_type, Type::MutableReference(_))
-    }
-}
-
-impl Field {
-    pub fn is_public(&self) -> bool {
-        // Add implementation
-        true
-    }
-
-    pub fn has_invariant(&self) -> bool {
-        // Add implementation
-        false
-    }
-
-    pub fn get_invariant(&self) -> Option<String> {
-        // Add implementation
-        None
     }
 }

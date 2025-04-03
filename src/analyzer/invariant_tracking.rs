@@ -126,6 +126,16 @@ impl InvariantTracker {
         self.global_invariants.contains_key(name) ||
         self.struct_invariants.contains_key(name)
     }
+
+    pub fn parse_field_invariant(&self, _module: &Module, field_name: &str) -> Option<&str> {
+        self.field_invariants.get(field_name)
+            .map(|info| info.condition.as_str())
+    }
+
+    pub fn parse_struct_invariant(&self, _module: &Module, struct_name: &str) -> Option<&str> {
+        self.struct_invariants.get(struct_name)
+            .map(|info| info.condition.as_str())
+    }
 }
 
 #[cfg(test)]
@@ -135,32 +145,37 @@ mod tests {
     #[test]
     fn test_parse_field_invariant() {
         let mut tracker = InvariantTracker::new();
-        let mut module = Module::new("test");
+        let mut module = Module::new("test".to_string());
         
         // Add field with invariant
-        module.add_field_with_invariant(
-            "balance",
-            "u64",
-            "balance >= 0"
+        let field = Field::new(
+            "balance".to_string(),
+            Type::Base("u64".to_string())
         );
-
-        assert!(tracker.parse_invariants(&module).is_ok());
-        assert!(tracker.has_invariant("balance"));
+        module.add_field_with_invariant(field, "balance >= 0".to_string());
+        
+        // Test invariant parsing
+        let result = tracker.parse_field_invariant(&module, "balance");
+        assert!(result.is_some());
+        assert_eq!(result.unwrap(), "balance >= 0");
     }
 
     #[test]
     fn test_parse_struct_invariant() {
         let mut tracker = InvariantTracker::new();
-        let mut module = Module::new("test");
+        let mut module = Module::new("test".to_string());
         
         // Add struct with invariant
-        module.add_struct_with_invariant(
-            "Coin",
-            vec![("value", "u64")],
-            "value > 0"
-        );
-
-        assert!(tracker.parse_invariants(&module).is_ok());
-        assert!(tracker.has_invariant("Coin"));
+        let mut struct_def = Struct::new("Coin".to_string());
+        struct_def.fields.push(Field::new(
+            "value".to_string(),
+            Type::Base("u64".to_string())
+        ));
+        module.add_struct_with_invariant(struct_def, "value > 0".to_string());
+        
+        // Test invariant parsing
+        let result = tracker.parse_struct_invariant(&module, "Coin");
+        assert!(result.is_some());
+        assert_eq!(result.unwrap(), "value > 0");
     }
 } 

@@ -455,7 +455,7 @@ mod tests {
         let mut analyzer = EscapeAnalyzer::new();
         analyzer.add_invariant_field("value".to_string());
         
-        let mut function = Function::new("test");
+        let mut function = Function::new("test".to_string());
         function.add_statement(Statement::BorrowField("value".to_string()));
         function.add_statement(Statement::Return(Expression::Variable("x".to_string())));
         
@@ -472,7 +472,7 @@ mod tests {
     fn test_safe_reference() {
         let mut analyzer = EscapeAnalyzer::new();
         
-        let mut function = Function::new("test");
+        let mut function = Function::new("test".to_string());
         function.add_statement(Statement::BorrowLocal("x".to_string()));
         function.add_statement(Statement::Return(Expression::Variable("x".to_string())));
         
@@ -486,7 +486,7 @@ mod tests {
         let mut analyzer = EscapeAnalyzer::new();
         analyzer.add_invariant_field("value".to_string());
         
-        let mut function = Function::new("test");
+        let mut function = Function::new("test".to_string());
         function.add_statement(Statement::BorrowLocal("x".to_string()));
         function.add_statement(Statement::BorrowField("value".to_string()));
         
